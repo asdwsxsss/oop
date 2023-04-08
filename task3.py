@@ -15,6 +15,22 @@ class Student:
             spisok.extend(i)
         return float(sum(spisok) / max(len(spisok), 1))
 
+    # сравнение студентов(по средним оценкам за ДЗ)
+    def __lt__(self, other):
+        if not isinstance(other, Student):
+            return 'Not a Student'
+        return self.average_grade < other.average_grade
+
+    def __gt__(self, other):
+        if not isinstance(other, Student):
+            return 'Not a Student'
+        return self.average_grade > other.average_grade
+
+    def __eq__(self, other):
+        if not isinstance(other, Student):
+            return 'Not a Student'
+        return self.average_grade == other.average_grade
+
     def __str__(self):
         courses_in_progress_string = ', '.join(self.courses_in_progress)
         finished_courses_string = ', '.join(self.finished_courses)
@@ -56,6 +72,28 @@ class Lecturer(Mentor):
         for i in self.grades.values():
             spisok.extend(i)
         return float(sum(spisok) / len(spisok))
+
+    # сравнение лекторов(по средним оценкам за ДЗ)
+    def __lt__(self, other):
+        if not isinstance(other, Lecturer):
+            return 'Not a lector'
+        if not isinstance(self, Lecturer):
+            return 'Not a lector'
+        return self.average_grade < other.average_grade
+
+    def __gt__(self, other):
+        if not isinstance(other, Lecturer):
+            return 'Not a lector'
+        if not isinstance(self, Lecturer):
+            return 'Not a lector'
+        return self.average_grade > other.average_grade
+
+    def __eq__(self, other):
+        if not isinstance(other, Lecturer):
+            return 'Not a lector'
+        if not isinstance(self, Lecturer):
+            return 'Not a lector'
+        return self.average_grade == other.average_grade
 
     def __str__(self):
         res = f'Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за лекции: {self.average_grade}'
@@ -125,6 +163,7 @@ reviewer_2.rate_hw(student_2, 'Java', 6)
 reviewer_2.rate_hw(student_2, 'Java', 2)
 
 
+
 print(student_1)
 print()
 print(student_2)
@@ -133,8 +172,7 @@ print(lector_1)
 print()
 print(lector_2)
 print()
-print(f'Результат сравнения студентов(по средним оценкам за ДЗ): {student_1.name} {student_1.surname} < {student_2.name} {student_2.surname} = {student_1.average_grade < student_2.average_grade}')
-print(f'Результат сравнения студентов(по средним оценкам за ДЗ): {lector_1.name} {lector_1.surname} < {lector_2.name} {lector_2.surname} = {lector_1.average_grade < lector_2.average_grade}')
+print(f'Результат сравнения по средним оценкам за ДЗ: {student_1 > student_2} ')
 print()
 
 student_list = [student_1, student_2]
